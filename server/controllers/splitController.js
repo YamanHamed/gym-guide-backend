@@ -14,10 +14,13 @@ const getAllSplits = async (req, res) => {
 const getSplitsByName = async (req, res) => {
   try {
     const { name } = req.params;
-    const splits = await Split.find({
+    const split = await Split.findOne({
       name: { $regex: new RegExp(`^${name}$`, "i") },
     });
-    res.status(200).json(splits);
+    if (!split) {
+      return res.status(404).json({ message: "Split not found" });
+    }
+    res.status(200).json(split);
   } catch (error) {
     res
       .status(500)
