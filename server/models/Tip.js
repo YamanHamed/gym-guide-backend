@@ -17,6 +17,7 @@ const tipSchema = new mongoose.Schema(
         url: { type: String, required: true },
       },
     ],
+    tag: { type: String, default: "general" },
     createdAt: {
       type: Date,
       default: Date.now,

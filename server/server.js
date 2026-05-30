@@ -30,6 +30,12 @@ app.use("/api/auth", authRoutes);
 const uploadRoutes = require("./routes/uploadRoutes");
 app.use("/api/upload", uploadRoutes);
 
+const contactRoutes = require("./routes/contactRoutes");
+app.use("/api/contact", contactRoutes);
+
+const searchRoutes = require("./routes/searchRoutes");
+app.use("/api/search", searchRoutes);
+
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });

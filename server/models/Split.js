@@ -17,6 +17,7 @@ const trainingDayCardSchema = new mongoose.Schema({
 const scheduleExerciseSchema = new mongoose.Schema({
   name: { type: String, required: true }, // e.g., "Bench Press"
   webName: { type: String, default: "" }, // for navigation / slug
+  muscle: { type: String, required: true }, // e.g., "chest", "back", "legs"
 });
 
 const trainingDaySchema = new mongoose.Schema({
@@ -68,7 +69,7 @@ const splitSchema = new mongoose.Schema(
 
     schedulesSection: {
       sectionHeader: pageHeaderSchema,
-      accordions: [scheduleSchema],
+      schedules: [scheduleSchema],
       tip: tipSchema,
     },
   },

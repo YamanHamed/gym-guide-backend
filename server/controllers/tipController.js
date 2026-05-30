@@ -22,13 +22,19 @@ const getTipById = async (req, res) => {
 // CREATE tip (admin only)
 const createTip = async (req, res) => {
   try {
-    const { title, content, image, links } = req.body;
+    const { title, content, image, links, tag } = req.body;
     if (!title || !content) {
       return res
         .status(400)
         .json({ message: "Title and content are required" });
     }
-    const tip = await Tip.create({ title, content, image, links });
+    const tip = await Tip.create({
+      title,
+      content,
+      image,
+      links,
+      tag: tag || "general",
+    });
     res.status(201).json(tip);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -40,11 +46,12 @@ const updateTip = async (req, res) => {
     const tip = await Tip.findById(req.params.id);
     if (!tip) return res.status(404).json({ message: "Tip not found" });
 
-    const { title, content, image, links } = req.body;
+    const { title, content, image, links, tag } = req.body;
     if (title !== undefined) tip.title = title;
     if (content !== undefined) tip.content = content;
     if (image !== undefined) tip.image = image;
     if (links !== undefined) tip.links = links;
+    if (tag !== undefined) tip.tag = tag;
 
     const updatedTip = await tip.save();
     res.json(updatedTip);

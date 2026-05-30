@@ -34,7 +34,7 @@ const createSplit = async (req, res) => {
     const {
       name,
       description,
-      image, // card image URL
+      image,
       links,
       pageHeader,
       trainingDaysSection,
@@ -64,7 +64,7 @@ const createSplit = async (req, res) => {
       },
       schedulesSection: schedulesSection || {
         sectionHeader: {},
-        accordions: [],
+        schedules: [],
         tip: {},
       },
     };
