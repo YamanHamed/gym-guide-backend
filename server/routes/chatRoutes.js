@@ -13,25 +13,31 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    const response = await fetch("https://text.pollinations.ai/openai", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "openai", // can also use openai-fast, claude, gemini, deepseek, llama
-        messages: [
-          {
-            role: "system",
-            content: `You are a helpful gym coach and fitness guide. Keep responses concise (2-3 sentences) and practical. Focus ONLY on exercises, nutrition, form, motivation, and general fitness. If asked about topics unrelated to fitness (e.g., politics, history, entertainment), politely decline and redirect to fitness.`,
-          },
-          {
-            role: "user",
-            content: message,
-          },
-        ],
-        temperature: 0.7,
-        max_tokens: 200,
-      }),
-    });
+    const response = await fetch(
+      "https://gen.pollinations.ai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.POLLINATIONS_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "openai",
+          messages: [
+            {
+              role: "system",
+              content: `You are a helpful gym coach and fitness guide. Keep responses concise (2-3 sentences) and practical. Focus ONLY on exercises, nutrition, form, motivation, and general fitness. If asked about topics unrelated to fitness (e.g., politics, history, entertainment), politely decline and redirect to fitness.`,
+            },
+            {
+              role: "user",
+              content: message,
+            },
+          ],
+          temperature: 0.7,
+          max_tokens: 200,
+        }),
+      },
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -64,5 +70,4 @@ router.post("/", async (req, res) => {
     });
   }
 });
-
 module.exports = router;

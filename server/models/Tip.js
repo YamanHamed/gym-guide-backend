@@ -7,21 +7,26 @@ const tipSchema = new mongoose.Schema(
       required: [true, "Tip title is required"],
       trim: true,
     },
-    content: {
-      type: String,
-      required: [true, "Tip content is required"],
-    },
+    title_ar: { type: String, default: "" },
+
+    content: { type: String, required: [true, "Tip content is required"] },
+    content_ar: { type: String, default: "" },
+
+    image: { type: String, default: "" }, // added missing field
+
     links: [
       {
         label: { type: String, required: true },
+        label_ar: { type: String, default: "" },
         url: { type: String, required: true },
       },
     ],
-    tag: { type: String, default: "general" },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+
+    tags: { type: [String], default: ["general"] },
+    tags_ar: { type: [String], default: [] }, // optional, for translated categories
+
+    createdAt: { type: Date, default: Date.now },
+    importance: { type: Number, default: 5, min: 1, max: 10 },
   },
   { timestamps: true },
 );

@@ -17,36 +17,52 @@ router.get("/", async (req, res) => {
     const exercises = await Exercise.find({
       $or: [
         { name: regex },
+        { name_ar: regex },
         { description: regex },
+        { description_ar: regex },
         { muscle: regex },
+        { muscle_ar: regex },
         { muscleHead: regex },
+        { muscleHead_ar: regex },
       ],
     })
-      .select("name description image muscle muscleHead")
+      .select(
+        "name name_ar description description_ar image muscle muscle_ar muscleHead muscleHead_ar",
+      )
       .limit(10);
 
     const splits = await Split.find({
-      $or: [{ name: regex }, { description: regex }],
+      $or: [
+        { name: regex },
+        { name_ar: regex },
+        { description: regex },
+        { description_ar: regex },
+      ],
     })
-      .select("name description image")
+      .select("name name_ar description description_ar image")
       .limit(10);
 
-    // Format results – no frontend URLs
     const results = [
       ...exercises.map((ex) => ({
         type: "exercise",
         id: ex._id,
         name: ex.name,
+        name_ar: ex.name_ar,
         description: ex.description,
+        description_ar: ex.description_ar,
         image: ex.image,
         muscle: ex.muscle,
+        muscle_ar: ex.muscle_ar,
         muscleHead: ex.muscleHead,
+        muscleHead_ar: ex.muscleHead_ar,
       })),
       ...splits.map((split) => ({
         type: "split",
         id: split._id,
         name: split.name,
+        name_ar: split.name_ar,
         description: split.description,
+        description_ar: split.description_ar,
         image: split.image,
       })),
     ];
