@@ -18,3 +18,6 @@ The backend is a robust Node.js and Express server that handles data orchestrati
     - Role-based access control for administrative dashboard access.
 - **AI Integration Engine:** Dedicated controllers and services that interface with AI models, managing request/response cycles for the fitness assistant feature.
 - **Admin Dashboard Logic:** Backend support for content management, allowing updates to the exercise library and user moderation directly via the API.
+
+## Related Repositories
+* [Frontend Repository](https://github.com/YamanHamed/gym-guide)
